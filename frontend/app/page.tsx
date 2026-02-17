@@ -47,7 +47,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="mt-6 flex justify-center md:justify-start">
                 <a
                   href="https://drive.google.com/file/d/163CeC1k16DbZ-U-FHBfqCjhZwKl3Xx0j/view?usp=sharing"
                   target="_blank"
