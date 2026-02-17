@@ -34,7 +34,7 @@ const projects: Project[] = [
       "Recruiter-focused portfolio with fast UX, smooth motion, and strong information hierarchy.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     image: "/projects/portfolio.svg",
-    github: "#",
+    github: "https://github.com/ADARSH-SINGH-1/adarsh-portfolio",
     details: [
       "Performance-first UI decisions",
       "Component-driven structure",
@@ -47,7 +47,7 @@ const projects: Project[] = [
       "Workflow automation platform for import-export documentation and status tracking.",
     tech: ["Next.js", "Node.js", "MongoDB", "RBAC"],
     image: "/projects/workflow.svg",
-    github: "#",
+    github: "https://github.com/Ishaanverma208/digi-import-export-automation",
     details: [
       "Role-based access control",
       "Audit-friendly workflow states",
