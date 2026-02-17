@@ -49,11 +49,12 @@ export default function Home() {
             <Reveal delay={0.2}>
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <a
-                  href="/resume.pdf"
+                  href="https://drive.google.com/file/d/163CeC1k16DbZ-U-FHBfqCjhZwKl3Xx0j/view?usp=sharing"
                   target="_blank"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-medium hover:bg-emerald-400 transition"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition text-black font-semibold"
                 >
-                  Download Resume
+                  Resume
                 </a>
                 <button
                   type="button"
