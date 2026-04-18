@@ -91,7 +91,7 @@ export default function ContactSection() {
                   LinkedIn
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/ADARSH-SINGH-1"
                   target="_blank"
                   className="text-white/60 hover:text-emerald-400 transition"
                 >
