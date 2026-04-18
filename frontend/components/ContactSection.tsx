@@ -1,51 +1,160 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    try {
+      const res = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to send message");
+
+      setStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
+  };
+
   return (
     <section id="contact" className="py-24 md:py-32 border-t border-white/5 scroll-mt-20">
-      <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-5xl font-bold text-white mb-4"
-        >
-          Contact
-        </motion.h2>
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <div className="text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-bold text-white mb-4"
+          >
+            Contact
+          </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.08 }}
-          className="text-white/65 max-w-xl mx-auto leading-relaxed"
-        >
-          If you want to collaborate, discuss internships, or talk about building products — reach out.
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="text-white/65 max-w-xl mx-auto leading-relaxed"
+          >
+            If you want to collaborate, discuss internships, or talk about building products — reach out.
+          </motion.p>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.14 }}
-          className="mt-8 flex flex-col sm:flex-row justify-center gap-3"
+          className="grid md:grid-cols-5 gap-10"
         >
-          <a
-            href="mailto:adarsh@example.com"
-            className="px-6 py-3 rounded-xl bg-emerald-500 text-white font-medium hover:bg-emerald-400 transition"
-          >
-            Email
-          </a>
-          <a
-            href="https://www.linkedin.com/in/adarsh-singh-mlg/"
-            target="_blank"
-            className="px-6 py-3 rounded-xl bg-white/10 text-white font-medium hover:bg-white/15 transition"
-          >
-            LinkedIn
-          </a>
+          <div className="md:col-span-2 space-y-6">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+              <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
+              <p className="text-emerald-300 text-sm">adarsh@example.com</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+              <h3 className="text-lg font-semibold text-white mb-2">Socials</h3>
+              <div className="flex gap-4 mt-3">
+                <a
+                  href="https://www.linkedin.com/in/adarsh-singh-mlg/"
+                  target="_blank"
+                  className="text-white/60 hover:text-emerald-400 transition"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  className="text-white/60 hover:text-emerald-400 transition"
+                >
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="md:col-span-3 space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+                required
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+                required
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
+              />
+            </div>
+            <input
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              placeholder="Subject (Optional)"
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
+            />
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Your Message"
+              required
+              rows={5}
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition resize-none"
+            />
+            
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full py-4 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {status === "loading" ? "Sending..." : "Send Message"}
+            </button>
+
+            {status === "success" && (
+              <p className="text-emerald-400 text-sm text-center mt-2">Message sent successfully!</p>
+            )}
+            {status === "error" && (
+              <p className="text-red-400 text-sm text-center mt-2">Failed to send message. Please try again.</p>
+            )}
+          </form>
         </motion.div>
       </div>
     </section>
