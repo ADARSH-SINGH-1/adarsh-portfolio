@@ -33,7 +33,7 @@ export default function ContactSection() {
 
       setStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-      
+
       // Reset success message after 3 seconds
       setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
@@ -78,7 +78,7 @@ export default function ContactSection() {
           <div className="md:col-span-2 space-y-6">
             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
               <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
-              <p className="text-emerald-300 text-sm">adarsh@example.com</p>
+              <p className="text-emerald-300 text-sm">mlgadarsh@gmail.com</p>
             </div>
             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
               <h3 className="text-lg font-semibold text-white mb-2">Socials</h3>
@@ -139,7 +139,7 @@ export default function ContactSection() {
               rows={5}
               className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition resize-none"
             />
-            
+
             <button
               type="submit"
               disabled={status === "loading"}
