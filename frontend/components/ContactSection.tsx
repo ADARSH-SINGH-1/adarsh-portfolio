@@ -11,6 +11,7 @@ export default function ContactSection() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -21,7 +22,8 @@ export default function ContactSection() {
     setStatus("loading");
 
     try {
-      const res = await fetch("http://localhost:3000/api/contact", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${apiUrl}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,17 +31,21 @@ export default function ContactSection() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error("Failed to send message");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to send message");
+      }
 
       setStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
 
       // Reset success message after 3 seconds
       setTimeout(() => setStatus("idle"), 3000);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 3000);
+      setErrorMessage(error.message || "Something went wrong. Please try again.");
+      setTimeout(() => setStatus("idle"), 5000);
     }
   };
 
@@ -91,7 +97,7 @@ export default function ContactSection() {
                   LinkedIn
                 </a>
                 <a
-                  href="https://github.com/ADARSH-SINGH-1"
+                  href="https://github.com/adar-shh04"
                   target="_blank"
                   className="text-white/60 hover:text-emerald-400 transition"
                 >
@@ -103,42 +109,58 @@ export default function ContactSection() {
 
           <form onSubmit={handleSubmit} className="md:col-span-3 space-y-4">
             <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="sr-only">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="sr-only">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="subject" className="sr-only">Subject</label>
               <input
+                id="subject"
                 type="text"
-                name="name"
-                value={formData.name}
+                name="subject"
+                value={formData.subject}
                 onChange={handleChange}
-                placeholder="Name"
-                required
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
-              />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                required
+                placeholder="Subject (Optional)"
                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
               />
             </div>
-            <input
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder="Subject (Optional)"
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition"
-            />
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              required
-              rows={5}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition resize-none"
-            />
+            <div>
+              <label htmlFor="message" className="sr-only">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your Message"
+                required
+                rows={5}
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none text-white placeholder:text-white/40 transition resize-none"
+              />
+            </div>
 
             <button
               type="submit"
@@ -149,10 +171,10 @@ export default function ContactSection() {
             </button>
 
             {status === "success" && (
-              <p className="text-emerald-400 text-sm text-center mt-2">Message sent successfully!</p>
+              <p className="text-emerald-400 text-sm text-center mt-2 font-medium">Message sent successfully!</p>
             )}
             {status === "error" && (
-              <p className="text-red-400 text-sm text-center mt-2">Failed to send message. Please try again.</p>
+              <p className="text-red-400 text-sm text-center mt-2 font-medium">{errorMessage}</p>
             )}
           </form>
         </motion.div>

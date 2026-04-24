@@ -21,7 +21,7 @@ const projects: Project[] = [
       "Micronutrient deficiency detection with a clean ML pipeline + inference integration.",
     tech: ["Python", "TensorFlow", "OpenCV", "Flask"],
     image: "/projects/vitamin-vision.svg",
-    github: "https://github.com/ADARSH-SINGH-1/VitaminVision",
+    github: "https://github.com/adar-shh04/VitaminVision",
     details: [
       "Structured training + evaluation pipeline",
       "Inference-ready backend integration",
@@ -34,7 +34,7 @@ const projects: Project[] = [
       "Recruiter-focused portfolio with fast UX, smooth motion, and strong information hierarchy.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     image: "/projects/portfolio.svg",
-    github: "https://github.com/ADARSH-SINGH-1/adarsh-portfolio",
+    github: "https://github.com/adar-shh04/adarsh-portfolio",
     details: [
       "Performance-first UI decisions",
       "Component-driven structure",
@@ -97,6 +97,7 @@ export default function ProjectsSection() {
                   src={p.image}
                   alt={p.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   priority={idx === 0}
                 />
@@ -154,7 +155,7 @@ export default function ProjectsSection() {
               aria-modal="true"
             >
               <div className="relative aspect-[16/9] bg-black/50">
-                <Image src={open.image} alt={open.title} fill className="object-cover" />
+                <Image src={open.image} alt={open.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_20%,rgba(16,185,129,0.22),transparent_60%)]" />
               </div>
 

@@ -12,6 +12,11 @@ const submitContactForm = async (req, res) => {
       return res.status(400).json({ error: "Name, email, and message are required." });
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format." });
+    }
+
     // 1. Save to MongoDB
     const newMessage = await Message.create({
       name,
