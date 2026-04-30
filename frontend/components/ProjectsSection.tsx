@@ -42,16 +42,16 @@ const projects: Project[] = [
     ],
   },
   {
-    title: "Import-Export Digitalization",
+    title: "LogisticsAuto",
     description:
-      "Workflow automation platform for import-export documentation and status tracking.",
-    tech: ["Next.js", "Node.js", "MongoDB", "RBAC"],
+      "Industry-grade supply chain automation using OCR, Gemini NLP, and anomaly detection.",
+    tech: ["FastAPI", "PostgreSQL", "Redis", "Docker", "Gemini AI"],
     image: "/projects/workflow.svg",
-    github: "https://github.com/Ishaanverma208/digi-import-export-automation",
+    github: "https://github.com/adar-shh04/Logistics-Automation",
     details: [
-      "Role-based access control",
-      "Audit-friendly workflow states",
-      "Production-style dashboard UX",
+      "AI-driven document parsing via Google Gemini",
+      "Distributed task queue with Redis & Celery",
+      "Production-ready anomaly detection for risk scoring",
     ],
   },
 ];

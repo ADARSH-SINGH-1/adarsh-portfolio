@@ -13,6 +13,10 @@ import {
   SiFlask,
   SiTensorflow,
   SiKeras,
+  SiFastapi,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
 } from "react-icons/si";
 
 const frontendTech = [
@@ -27,7 +31,10 @@ const backendTech = [
   { icon: SiNodedotjs, label: "Node.js" },
   { icon: SiMongodb, label: "MongoDB" },
   { icon: SiPython, label: "Python" },
-  { icon: SiFlask, label: "Flask" },
+  { icon: SiFastapi, label: "FastAPI" },
+  { icon: SiPostgresql, label: "PostgreSQL" },
+  { icon: SiRedis, label: "Redis" },
+  { icon: SiDocker, label: "Docker" },
 ];
 
 const mlTech = [
