@@ -54,6 +54,20 @@ const projects: Project[] = [
       "Production-ready anomaly detection for risk scoring",
     ],
   },
+  {
+    title: "Financial Risk Intelligence System",
+    description:
+      "Enterprise ML pipeline combining ensemble models, Monte Carlo VaR, and SHAP explainability for customer churn risk analytics.",
+    tech: ["Python", "XGBoost", "LightGBM", "SHAP", "Streamlit", "Plotly"],
+    image: "/projects/financial-risk.svg",
+    github: "https://github.com/adar-shh04/Financial-Risk-Intelligence-System",
+    details: [
+      "Ensemble model (XGBoost + LightGBM + Random Forest) with isotonic calibration",
+      "Monte Carlo VaR with 10,000 simulations for 95% portfolio Value at Risk",
+      "SHAP explainability — global beeswarm & per-customer waterfall breakdowns",
+      "Stress testing across 4 macro scenarios + auto-generated PDF consultancy report",
+    ],
+  },
 ];
 
 export default function ProjectsSection() {

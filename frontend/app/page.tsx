@@ -49,7 +49,7 @@ export default function Home() {
             <Reveal delay={0.2}>
               <div className="mt-6 flex justify-center md:justify-start">
                 <a
-                  href="https://drive.google.com/file/d/163CeC1k16DbZ-U-FHBfqCjhZwKl3Xx0j/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1aRsIjOfzaTCEYkzPm_zdyj9C2hxwgxPK/view?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition text-black font-semibold"
